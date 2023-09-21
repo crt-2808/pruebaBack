@@ -12,8 +12,6 @@ import {
   createCambaceoDaily,
   createPlaneador,
   getSeguimientoDiario,
-  getPhones,
-  getPhone,
 } from "../controllers/employees.controller.js";
 import multer from "multer";
 
