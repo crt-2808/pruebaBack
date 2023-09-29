@@ -12,6 +12,7 @@ import {
   createCambaceoDaily,
   createPlaneador,
   getSeguimientoDiario,
+  createLlamada,
 } from "../controllers/employees.controller.js";
 import multer from "multer";
 
@@ -66,7 +67,8 @@ router.post("/cambaceo/diario", createCambaceoDaily);
 router.post("/cambaceo/seguimientoDiario", getSeguimientoDiario);
 // Seguimiento Cambaceo Semanal
 
-//Seguimiento llamada
+//Insertar llamada
+router.post("/llamada", createLlamada)
 
 
 

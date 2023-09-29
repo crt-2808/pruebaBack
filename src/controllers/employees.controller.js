@@ -480,4 +480,44 @@ export const getSeguimientoLlamada = (req, res) => {
   })
 };
 
-  
+export const createLlamada = async (req, res) => {
+  try {
+    const { NombreCompleto, 
+      Telefono, 
+      FechaAsignacion,  
+      Descripcion,
+      Documentos="src",
+      FechaConclusion=FechaAsignacion,
+      TipoEmpresa,
+      FechaSeguimiento=FechaAsignacion,
+      Direccion_Calle,
+      Direccion_Num_Ext,
+      Direccion_Num_Int,
+      Direccion_CP, 
+      Direccion_Colonia
+    } = req.body;
+
+    const [rows] = await pool.query(
+      'INSERT INTO Planificador (NombreCompleto, Telefono, FechaInicio, Descripcion, Documentos, FechaConclusion, TipoEmpresa, SitioWeb, IDColab, FechaSeguimiento, Direccion_Calle, Direccion_Num_Ext, Direccion_Num_Int, Direccion_CP, Direccion_Colonia ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [NombreCompleto, 
+        Telefono, 
+        FechaAsignacion,  
+        Descripcion,
+        Documentos,
+        FechaConclusion,
+        TipoEmpresa,
+        FechaSeguimiento,
+        Direccion_Calle,
+        Direccion_Num_Ext,
+        Direccion_Num_Int,
+        Direccion_CP, 
+        Direccion_Colonia
+      ]
+    );
+
+    res.status(201).json({ id: rows.insertId, contactos, tel, FechaAsignacion, Descripcion });
+  } catch (error) {
+    console.error('Error creating llamada:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
