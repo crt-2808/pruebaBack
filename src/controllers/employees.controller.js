@@ -482,40 +482,41 @@ export const getSeguimientoLlamada = (req, res) => {
 
 export const createLlamada = async (req, res) => {
   try {
-    const { NombreCompleto, 
-      Telefono, 
-      FechaAsignacion,  
-      Descripcion,
-      Documentos="src",
-      FechaConclusion=FechaAsignacion,
-      TipoEmpresa,
-      FechaSeguimiento=FechaAsignacion,
-      Direccion_Calle,
-      Direccion_Num_Ext,
-      Direccion_Num_Int,
-      Direccion_CP, 
-      Direccion_Colonia
-    } = req.body;
+    console.log(req.body);
 
+    const { Tipo,
+      FechaAsignacion,
+      FechaConclusion, 
+      Descripcion,
+      Documentos,
+      NombreCompleto, 
+      Telefono, 
+      IDColaborador,
+      Direccion_Calle
+    } = req.body;
     const [rows] = await pool.query(
-      'INSERT INTO Planificador (NombreCompleto, Telefono, FechaInicio, Descripcion, Documentos, FechaConclusion, TipoEmpresa, SitioWeb, IDColab, FechaSeguimiento, Direccion_Calle, Direccion_Num_Ext, Direccion_Num_Int, Direccion_CP, Direccion_Colonia ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [NombreCompleto, 
-        Telefono, 
+      "INSERT INTO Planificador (Tipo, FechaAsignacion, FechaConclusion, Descripcion, Documentos, NombreCompleto, Telefono, IDColaborador, Direccion_Calle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [Tipo,
         FechaAsignacion,  
+        FechaConclusion,
         Descripcion,
         Documentos,
-        FechaConclusion,
-        TipoEmpresa,
-        FechaSeguimiento,
+        NombreCompleto, 
+        Telefono, 
+        IDColaborador,
         Direccion_Calle,
-        Direccion_Num_Ext,
-        Direccion_Num_Int,
-        Direccion_CP, 
-        Direccion_Colonia
       ]
     );
-
-    res.status(201).json({ id: rows.insertId, contactos, tel, FechaAsignacion, Descripcion });
+    res.status(201).json({ Tipo,
+      FechaAsignacion,  
+      FechaConclusion,
+      Descripcion,
+      Documentos,
+      NombreCompleto, 
+      Telefono, 
+      IDColaborador,
+      Direccion_Calle,
+       });
   } catch (error) {
     console.error('Error creating llamada:', error);
     return res.status(500).json({ error: 'Internal server error' });
