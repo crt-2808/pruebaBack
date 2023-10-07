@@ -3,7 +3,7 @@ import { Storage } from "@google-cloud/storage";
 import Multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
-import { log } from "console";
+import { Console, log } from "console";
 
 export const getColaborador = async (req, res) => {
   try {
@@ -482,8 +482,6 @@ export const getSeguimientoLlamada = (req, res) => {
 
 export const createLlamada = async (req, res) => {
   try {
-    console.log(req.body);
-
     const { Tipo,
       FechaAsignacion,
       FechaConclusion, 
@@ -494,6 +492,7 @@ export const createLlamada = async (req, res) => {
       IDColaborador,
       Direccion_Calle
     } = req.body;
+    console.log("hola ", req.body.Tipo, "Este es el tipo");
     const [rows] = await pool.query(
       "INSERT INTO Planificador (Tipo, FechaAsignacion, FechaConclusion, Descripcion, Documentos, NombreCompleto, Telefono, IDColaborador, Direccion_Calle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [Tipo,
@@ -516,9 +515,9 @@ export const createLlamada = async (req, res) => {
       Telefono, 
       IDColaborador,
       Direccion_Calle,
-       });
+    });
   } catch (error) {
-    console.error('Error creating llamada:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' + error});
   }
 };

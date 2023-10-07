@@ -16,6 +16,7 @@ import {
 } from "../controllers/employees.controller.js";
 import multer from "multer";
 
+
 // const multer = Multer({
 //   storage: Multer.memoryStorage(),
 // });
@@ -24,6 +25,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const router = Router();
+
 // const upload = multer();
 
 // GET all Colaboradores
@@ -68,7 +70,7 @@ router.post("/cambaceo/seguimientoDiario", getSeguimientoDiario);
 // Seguimiento Cambaceo Semanal
 
 //Insertar llamada
-router.post("/llamada", createLlamada)
+router.post("/Insertarllamada", createLlamada)
 
 
 
